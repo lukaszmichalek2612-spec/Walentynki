@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>💕 Ważne pytanie 💕</title>
+
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background: linear-gradient(135deg, #fff0f7, #ffc1d6, #ff6fb3);
+      padding: 20px;
+    }
+
+    .card {
+      background: rgba(255,255,255,0.95);
+      border-radius: 28px;
+      padding: 28px 22px;
+      width: min(560px, 96vw);
+      text-align: center;
+      box-shadow: 0 18px 60px rgba(255, 20, 147, 0.3);
+    }
+
+    img {
+      width: min(320px, 80vw);
+      border-radius: 22px;
+      box-shadow: 0 12px 30px rgba(255, 20, 147, 0.25);
+      margin-bottom: 18px;
+    }
+
+    h1 {
+      color: #ff1493;
+      font-size: clamp(1.6rem, 4.5vw, 2.3rem);
+      margin-bottom: 22px;
+    }
+
+    .buttons {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .btn {
+      border: none;
+      border-radius: 999px;
+      padding: 16px;
+      font-size: 1.4rem;
+      font-weight: 800;
+      cursor: pointer;
+      color: white;
+      background: linear-gradient(45deg, #ff69b4, #ff1493);
+      box-shadow: 0 12px 30px rgba(255, 20, 147, 0.35);
+      transition: transform .15s, box-shadow .15s;
+    }
+
+    .btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 16px 40px rgba(255, 20, 147, 0.45);
+    }
+
+    .hidden { display: none; }
+
+    .countdown {
+      font-size: 1.6rem;
+      margin-top: 12px;
+      color: #c2187a;
+      font-weight: 700;
+    }
+
+    @media (max-width: 420px) {
+      .buttons { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="card">
+
+  <!-- PYTANIE -->
+  <section id="screen-question">
+    <img src="1.jpg" alt="Myszka z kwiatkami">
+    <h1>Zostaniesz moją Walentynką? 👉👈🥺</h1>
+
+    <div class="buttons">
+      <button class="btn" onclick="yes()">TAK 💕</button>
+      <button class="btn" onclick="no()">NIE</button>
+    </div>
+  </section>
+
+  <!-- TAK -->
+  <section id="screen-yes" class="hidden">
+    <img src="2.jpg" alt="Przytulające się myszy">
+    <h1>WIEDZIAŁEM BUNIU! 💕</h1>
+  </section>
+
+  <!-- NIE -->
+  <section id="screen-no" class="hidden">
+    <h1>TO CHYBA POMYŁKA 😅</h1>
+    <div class="countdown">
+      Wracam za <span id="timer">3</span>…
+    </div>
+  </section>
+
+</div>
+
+<script>
+  const q = document.getElementById("screen-question");
+  const y = document.getElementById("screen-yes");
+  const n = document.getElementById("screen-no");
+  const timerEl = document.getElementById("timer");
+
+  function yes() {
+    q.classList.add("hidden");
+    n.classList.add("hidden");
+    y.classList.remove("hidden");
+  }
+
+  function no() {
+    q.classList.add("hidden");
+    y.classList.add("hidden");
+    n.classList.remove("hidden");
+
+    let time = 3;
+    timerEl.textContent = time;
+
+    const interval = setInterval(() => {
+      time--;
+      timerEl.textContent = time;
+
+      if (time === 0) {
+        clearInterval(interval);
+        n.classList.add("hidden");
+        q.classList.remove("hidden");
+      }
+    }, 1000);
+  }
+</script>
+
+</body>
+</html>
